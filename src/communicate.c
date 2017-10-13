@@ -35,11 +35,17 @@ void rfid_tcp_read_cb(uv_stream_t *client, ssize_t n, const uv_buf_t *buf)
 {
 	if ( UV_EOF == n )
 	{
-		printf("EOF reached!\n");
+		/**
+		 * EOF reached, this situation will never happen
+		 * while the rfid reader at loop read mode.
+		 * */
+		uv_read_stop(client);
+		free(buf->base);
+		return ;
 	}
 	else if ( n < 0 )
 	{
-		printf("n <= 0\n");
+		/* Some error happened */
 		uv_read_stop(client);
 		free(buf->base);
 		return ;
@@ -65,10 +71,33 @@ void rfid_tcp_connection_cb(uv_stream_t *server, int status)
 	rfid_reader_send_config();
 }
 
-int main(int argc, char *argv[])
+void rfid_tcp_server_init(void)
 {
 	struct sockaddr_in	rfid_tcp_server_addr;
 	uv_tcp_t			rfid_tcp_server;
+
+	assert( 0 == uv_ip4_addr("0.0.0.0", 8080, &rfid_tcp_server_addr) );
+
+	assert( 0 == uv_tcp_init(uv_default_loop(), &rfid_tcp_server) );
+	assert( 0 == uv_tcp_bind(&rfid_tcp_server, (struct sockaddr *)&rfid_tcp_server_addr, 0) );
+	assert( 0 == uv_listen((uv_stream_t *)&rfid_tcp_server, 5, rfid_tcp_connection_cb) );
+}
+
+void rfid_udp_server_init(void)
+{
+	struct sockaddr_in	rfid_udp_server_addr;
+	uv_udp_t			rfid_udp_server;
+
+	assert( 0 == uv_ip4_addr )
+	return ;
+}
+
+int main(int argc, char *argv[])
+{
+	struct sockaddr_in	rfid_tcp_server_addr;
+	struct sockaddr_in	rfid_udp_server_addr;
+	uv_tcp_t			rfid_tcp_server;
+	uv_udp_t			rfid_udp_server;
 
 	assert( 0 == uv_ip4_addr("0.0.0.0", 8080, &rfid_tcp_server_addr) );
 
