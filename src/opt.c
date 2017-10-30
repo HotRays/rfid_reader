@@ -232,7 +232,7 @@ void rfid_tcp_read_cb(uv_stream_t *client, ssize_t n, const uv_buf_t *buf)
 		while(n--){
 			memset(recv_list.base[j++], 0, ARFI_CHA);
 		}
-		printf("send to client cnt: %d  %s \n", recv_list.cnt, res);	
+		//printf("send to client cnt: %d  %s \n", recv_list.cnt, res);	
 		recv_list.cnt = 0;
 		
 		wr = (write_req_t*) malloc(sizeof( *wr));

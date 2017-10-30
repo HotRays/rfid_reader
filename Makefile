@@ -1,4 +1,10 @@
-rfid: src/rfid_reader.c src/rfid_reader.h src/rfid_list.c src/rfid_list.h src/communicate.c
-	gcc -o rfid src/rfid_list.c src/rfid_reader.c src/communicate.c -luv
+PREFIX =/usr/local/bin
+
+rfid: src/opt.c
+	gcc -o rfid src/opt.c -luv
+install:
+	install -d $(PREFIX)
+	install -m 0755 rfid $(PREFIX)
+	install -m 0755 src/rfidcollect.py $(PREFIX)
 clean:
 	rm rfid
