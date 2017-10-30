@@ -15,7 +15,7 @@ clisock.connect((HOST, PORT))
 clisock.send(pre)
 data = clisock.recv(16)
 if data == 'success':
-	time.sleep(3)
+	time.sleep(2)
 	clisock.send(recv)
 	source = clisock.recv(1024*4)
 	print source
