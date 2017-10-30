@@ -10,11 +10,11 @@ RFID READER SERVER AND CLIENT
         
 #Instructions for use
 
-        server : rfid
-
-        client : rfidcollect.py
+        server: rfid
+	
+	client: rfidcollect.py
         
-        server protocol： tcp
+        server protocol: tcp
 
         server bindport: 6000
 		
