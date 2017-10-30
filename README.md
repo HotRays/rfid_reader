@@ -11,8 +11,8 @@ RFID READER SERVER AND CLIENT
 #Instructions for use
 
         server: rfid
-	
-		client: rfidcollect.py
+
+        client: rfidcollect.py
         
         server protocol: tcp
 
